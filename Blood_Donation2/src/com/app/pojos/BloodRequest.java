@@ -9,6 +9,7 @@ public class BloodRequest
 {
 	private Integer req_id;
 	private User requster_id;//fk
+	private String blood_group;
 	private double requsted_qty;
 	private Date require_date;
 	private String request_msg;
@@ -17,13 +18,17 @@ public class BloodRequest
 		// TODO Auto-generated constructor stub
 	}
 
-	public BloodRequest(User requster_id, double requsted_qty, Date require_date, String request_msg) {
+
+	public BloodRequest(User requster_id, String blood_group, double requsted_qty, Date require_date,
+			String request_msg) {
 		super();
 		this.requster_id = requster_id;
+		this.blood_group = blood_group;
 		this.requsted_qty = requsted_qty;
 		this.require_date = require_date;
 		this.request_msg = request_msg;
 	}
+
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,7 +40,7 @@ public class BloodRequest
 		this.req_id = req_id;
 	}
 
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name = "requster_id")
 	public User getRequster_id() {
 		return requster_id;
@@ -68,6 +73,14 @@ public class BloodRequest
 
 	public void setRequest_msg(String request_msg) {
 		this.request_msg = request_msg;
+	}
+
+	public String getBlood_group() {
+		return blood_group;
+	}
+
+	public void setBlood_group(String blood_group) {
+		this.blood_group = blood_group;
 	}
 	
 	

@@ -76,6 +76,7 @@ public class Donation {
 		this.camp_id = camp_id;
 	}
 
+	@Column(nullable = false,columnDefinition = "TINYINT(1)")
 	public boolean isEmail_status() {
 		return email_status;
 	}
@@ -93,7 +94,8 @@ public class Donation {
 	public void setBloodbag_id(StockDetails bloodbag_id) {
 		this.bloodbag_id = bloodbag_id;
 	}
-
+	
+	@Temporal(TemporalType.DATE)
 	public Date getDonate_date() {
 		return donate_date;
 	}
@@ -102,6 +104,7 @@ public class Donation {
 		this.donate_date = donate_date;
 	}
 
+	@Column(nullable = false,columnDefinition = "TINYINT(1)")
 	public boolean isHepatitsB() {
 		return hepatitsB;
 	}
@@ -110,6 +113,7 @@ public class Donation {
 		this.hepatitsB = hepatitsB;
 	}
 
+	@Column(nullable = false,columnDefinition = "TINYINT(1)")
 	public boolean isHiv() {
 		return hiv;
 	}
@@ -118,6 +122,7 @@ public class Donation {
 		this.hiv = hiv;
 	}
 
+	@Column(nullable = false,columnDefinition = "TINYINT(1)")
 	public boolean isMalaria() {
 		return malaria;
 	}
@@ -126,6 +131,7 @@ public class Donation {
 		this.malaria = malaria;
 	}
 
+	@Column(nullable = false,columnDefinition = "TINYINT(1)")
 	public boolean isHepatitsC() {
 		return hepatitsC;
 	}

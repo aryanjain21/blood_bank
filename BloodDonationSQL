@@ -1,0 +1,220 @@
+ create database blood_donation;
+Query OK, 1 row affected (0.18 sec)
+
+mysql> use blood_donation;
+Database changed
+mysql> show tables;
+Empty set (0.00 sec)
+
+mysql> show tables;
++--------------------------+
+| Tables_in_blood_donation |
++--------------------------+
+| address                  |
+| blood_request            |
+| camp_details             |
+| donation_details         |
+| stock_details            |
+| user                     |
++--------------------------+
+6 rows in set (0.01 sec)
+
+mysql> desc user;
++-------------+--------------+------+-----+---------+----------------+
+| Field       | Type         | Null | Key | Default | Extra          |
++-------------+--------------+------+-----+---------+----------------+
+| uid         | int(11)      | NO   | PRI | NULL    | auto_increment |
+| blood_group | varchar(255) | YES  |     | NULL    |                |
+| contact     | varchar(255) | YES  |     | NULL    |                |
+| email       | varchar(20)  | YES  | UNI | NULL    |                |
+| fName       | varchar(255) | YES  |     | NULL    |                |
+| gender      | varchar(255) | YES  |     | NULL    |                |
+| image       | tinyblob     | YES  |     | NULL    |                |
+| lName       | varchar(255) | YES  |     | NULL    |                |
+| password    | varchar(15)  | YES  |     | NULL    |                |
+| u_dob       | datetime     | YES  |     | NULL    |                |
+| role        | varchar(255) | YES  |     | NULL    |                |
+| weight      | int(11)      | YES  |     | NULL    |                |
++-------------+--------------+------+-----+---------+----------------+
+12 rows in set (0.01 sec)
+
+mysql> insert into user(default,"A","90909090","A@gmail.com","A","m",null,"a","123456",'2019-12-12',"ADMIN",90);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'default,"A","90909090","A@gmail.com","A","m",null,"a","123456",'2019-12-12',"ADM' at line 1
+mysql> insert into user(default,"A","90909090","A@gmail.com","A","m",null,"a","123456",'12-12-2019',"ADMIN",90);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'default,"A","90909090","A@gmail.com","A","m",null,"a","123456",'12-12-2019',"ADM' at line 1
+mysql> insert into user(1,"A","90909090","A@gmail.com","A","m",null,"a","123456",'12-12-2019',"ADMIN",90);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '1,"A","90909090","A@gmail.com","A","m",null,"a","123456",'12-12-2019',"ADMIN",90' at line 1
+mysql> insert into user(1,"A","90909090","A@gmail.com","A","m",null,"a","123456",'12-12-2019',"ADMIN",90);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '1,"A","90909090","A@gmail.com","A","m",null,"a","123456",'12-12-2019',"ADMIN",90' at line 1
+mysql> insert into user values(1,"A","90909090","A@gmail.com","A","m",null,"a","123456",'12-12-2019',"ADMIN",90);
+ERROR 1292 (22007): Incorrect datetime value: '12-12-2019' for column 'u_dob' at row 1
+mysql> insert into user values(1,"A","90909090","A@gmail.com","A","m",null,"a","123456",'2019-12-12',"ADMIN",90);
+Query OK, 1 row affected (0.13 sec)
+
+mysql> insert into user values(1,"B","90909090","B@gmail.com","B","f",null,"b","123456",'2019-11-11',"DONOR",12);
+ERROR 1062 (23000): Duplicate entry '1' for key 'PRIMARY'
+mysql> insert into user values(,"B","90909090","B@gmail.com","B","f",null,"b","123456",'2019-11-11',"DONOR",12);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ',"B","90909090","B@gmail.com","B","f",null,"b","123456",'2019-11-11',"DONOR",12)' at line 1
+mysql> insert into user values(default,"B","90909090","B@gmail.com","B","f",null,"b","123456",'2019-11-11',"DONOR",12);
+Query OK, 1 row affected (0.13 sec)
+
+mysql> select *from user;
++-----+-------------+----------+-------------+-------+--------+-------+-------+----------+---------------------+-------+--------+
+| uid | blood_group | contact  | email       | fName | gender | image | lName | password | u_dob               | role  | weight |
++-----+-------------+----------+-------------+-------+--------+-------+-------+----------+---------------------+-------+--------+
+|   1 | A           | 90909090 | A@gmail.com | A     | m      | NULL  | a     | 123456   | 2019-12-12 00:00:00 | ADMIN |     90 |
+|   2 | B           | 90909090 | B@gmail.com | B     | f      | NULL  | b     | 123456   | 2019-11-11 00:00:00 | DONOR |     12 |
++-----+-------------+----------+-------------+-------+--------+-------+-------+----------+---------------------+-------+--------+
+2 rows in set (0.00 sec)
+
+mysql> desc blood_request;
++--------------+--------------+------+-----+---------+----------------+
+| Field        | Type         | Null | Key | Default | Extra          |
++--------------+--------------+------+-----+---------+----------------+
+| req_id       | int(11)      | NO   | PRI | NULL    | auto_increment |
+| blood_group  | varchar(255) | YES  |     | NULL    |                |
+| request_msg  | varchar(255) | YES  |     | NULL    |                |
+| require_date | date         | YES  |     | NULL    |                |
+| requsted_qty | double       | NO   |     | NULL    |                |
+| requster_id  | int(11)      | YES  | MUL | NULL    |                |
++--------------+--------------+------+-----+---------+----------------+
+6 rows in set (0.00 sec)
+
+mysql> insert into blood_request(default,"A","its urgent","2019-11-11",90,1);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'default,"A","its urgent","2019-11-11",90,1)' at line 1
+mysql> insert into blood_request values(default,"A","its urgent","2019-11-11",90,1);
+Query OK, 1 row affected (0.12 sec)
+
+mysql> insert into blood_request values(default,"O","its really  urgent","2018-11-11",90,2);
+Query OK, 1 row affected (0.12 sec)
+
+mysql> select *from blood_request;
++--------+-------------+--------------------+--------------+--------------+-------------+
+| req_id | blood_group | request_msg        | require_date | requsted_qty | requster_id |
++--------+-------------+--------------------+--------------+--------------+-------------+
+|      1 | A           | its urgent         | 2019-11-11   |           90 |           1 |
+|      2 | O           | its really  urgent | 2018-11-11   |           90 |           2 |
++--------+-------------+--------------------+--------------+--------------+-------------+
+2 rows in set (0.00 sec)
+
+mysql> desc camp_details;
++--------------+--------------+------+-----+---------+----------------+
+| Field        | Type         | Null | Key | Default | Extra          |
++--------------+--------------+------+-----+---------+----------------+
+| camp_id      | int(11)      | NO   | PRI | NULL    | auto_increment |
+| blood_amount | double       | NO   |     | NULL    |                |
+| camp_date    | date         | YES  |     | NULL    |                |
+| camp_venue   | varchar(255) | YES  |     | NULL    |                |
+| organizer_id | int(11)      | YES  | MUL | NULL    |                |
++--------------+--------------+------+-----+---------+----------------+
+5 rows in set (0.00 sec)
+
+mysql> insert into camp_details values(default,30,"2019-12-11","Pune",1);
+Query OK, 1 row affected (0.13 sec)
+
+mysql> insert into camp_details values(default,30,"2019-12-09","Pune",2);
+Query OK, 1 row affected (0.12 sec)
+
+mysql> select *from camp_details;
++---------+--------------+------------+------------+--------------+
+| camp_id | blood_amount | camp_date  | camp_venue | organizer_id |
++---------+--------------+------------+------------+--------------+
+|       1 |           30 | 2019-12-11 | Pune       |            1 |
+|       2 |           30 | 2019-12-09 | Pune       |            2 |
++---------+--------------+------------+------------+--------------+
+2 rows in set (0.00 sec)
+
+mysql> desc donation_details;
++----------------+----------+------+-----+---------+----------------+
+| Field          | Type     | Null | Key | Default | Extra          |
++----------------+----------+------+-----+---------+----------------+
+| donate_id      | int(11)  | NO   | PRI | NULL    | auto_increment |
+| donate_date    | datetime | YES  |     | NULL    |                |
+| donated_amount | double   | NO   |     | NULL    |                |
+| email_status   | bit(1)   | NO   |     | NULL    |                |
+| hepatitsB      | bit(1)   | NO   |     | NULL    |                |
+| hepatitsC      | bit(1)   | NO   |     | NULL    |                |
+| hiv            | bit(1)   | NO   |     | NULL    |                |
+| malaria        | bit(1)   | NO   |     | NULL    |                |
+| bloodbag_id    | int(11)  | YES  | MUL | NULL    |                |
+| camp_id        | int(11)  | YES  | MUL | NULL    |                |
+| donor_id       | int(11)  | YES  | MUL | NULL    |                |
++----------------+----------+------+-----+---------+----------------+
+11 rows in set (0.00 sec)
+
+mysql> insert into donation_details(deafult,"2019-8-8","56",1,0,1,0,1,90,1,1);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '"2019-8-8","56",1,0,1,0,1,90,1,1)' at line 1
+mysql> insert into donation_details(deafult,"2019-08-08","56",1,0,1,0,1,90,1,1);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '"2019-08-08","56",1,0,1,0,1,90,1,1)' at line 1
+mysql> insert into donation_details values(deafult,"2019-08-08","56",1,0,1,0,1,90,1,1);
+ERROR 1054 (42S22): Unknown column 'deafult' in 'field list'
+mysql> insert into donation_details values(default,"2019-08-08","56",1,0,1,0,1,90,1,1);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`blood_donation`.`donation_details`, CONSTRAINT `FK7at2e7ld0gqti14p59qne1dwg` FOREIGN KEY (`bloodbag_id`) REFERENCES `stock_details` (`bloodbag_id`))
+mysql> select *from donation_details;
+Empty set (0.00 sec)
+
+mysql> insert into stock_details values();
+ERROR 1364 (HY000): Field 'blood_amt' doesn't have a default value
+mysql> desc stock_values;
+ERROR 1146 (42S02): Table 'blood_donation.stock_values' doesn't exist
+mysql> desc stock_details;
++--------------+--------------+------+-----+---------+----------------+
+| Field        | Type         | Null | Key | Default | Extra          |
++--------------+--------------+------+-----+---------+----------------+
+| bloodbag_id  | int(11)      | NO   | PRI | NULL    | auto_increment |
+| blood_amt    | double       | NO   |     | NULL    |                |
+| blood_group  | varchar(255) | YES  |     | NULL    |                |
+| expire_date  | date         | YES  |     | NULL    |                |
+| recieve_date | date         | YES  |     | NULL    |                |
+| mgr_id       | int(11)      | YES  | MUL | NULL    |                |
++--------------+--------------+------+-----+---------+----------------+
+6 rows in set (0.01 sec)
+
+mysql> insert into stock_details values(default,23,"A","2019-09-09","2019-10-10",1);
+Query OK, 1 row affected (0.11 sec)
+
+mysql> insert into donation_details values(default,"2019-08-08","56",1,0,1,0,1,90,1,1);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`blood_donation`.`donation_details`, CONSTRAINT `FK7at2e7ld0gqti14p59qne1dwg` FOREIGN KEY (`bloodbag_id`) REFERENCES `stock_details` (`bloodbag_id`))
+mysql> select *from stock_details;
++-------------+-----------+-------------+-------------+--------------+--------+
+| bloodbag_id | blood_amt | blood_group | expire_date | recieve_date | mgr_id |
++-------------+-----------+-------------+-------------+--------------+--------+
+|           1 |        23 | A           | 2019-09-09  | 2019-10-10   |      1 |
++-------------+-----------+-------------+-------------+--------------+--------+
+1 row in set (0.00 sec)
+
+mysql> desc donation_details;
++----------------+----------+------+-----+---------+----------------+
+| Field          | Type     | Null | Key | Default | Extra          |
++----------------+----------+------+-----+---------+----------------+
+| donate_id      | int(11)  | NO   | PRI | NULL    | auto_increment |
+| donate_date    | datetime | YES  |     | NULL    |                |
+| donated_amount | double   | NO   |     | NULL    |                |
+| email_status   | bit(1)   | NO   |     | NULL    |                |
+| hepatitsB      | bit(1)   | NO   |     | NULL    |                |
+| hepatitsC      | bit(1)   | NO   |     | NULL    |                |
+| hiv            | bit(1)   | NO   |     | NULL    |                |
+| malaria        | bit(1)   | NO   |     | NULL    |                |
+| bloodbag_id    | int(11)  | YES  | MUL | NULL    |                |
+| camp_id        | int(11)  | YES  | MUL | NULL    |                |
+| donor_id       | int(11)  | YES  | MUL | NULL    |                |
++----------------+----------+------+-----+---------+----------------+
+11 rows in set (0.00 sec)
+
+mysql> insert into donation_details values(default,"2019-08-08","56",1,0,1,0,1,1,1,1);
+Query OK, 1 row affected (0.13 sec)
+
+mysql> mysql> insert into donation_details values(default,"2019-08-08","56",1,true,true,true,true,1,1,1);
+Query OK, 1 row affected (0.13 sec)
+
+mysql> insert into donation_details values(default,"2019-08-18","56",1,0,1,0,1,90,1,1);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`blood_donation`.`donation_details`, CONSTRAINT `FK7at2e7ld0gqti14p59qne1dwg` FOREIGN KEY (`bloodbag_id`) REFERENCES `stock_details` (`bloodbag_id`))
+mysql> insert into donation_details values(default,"2019-08-18","56",1,0,1,0,2,90,1,1);
+ERROR 1406 (22001): Data too long for column 'malaria' at row 1
+mysql> insert into donation_details values(default,"2019-08-18","56",1,0,1,0,1,2,1,1);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`blood_donation`.`donation_details`, CONSTRAINT `FK7at2e7ld0gqti14p59qne1dwg` FOREIGN KEY (`bloodbag_id`) REFERENCES `stock_details` (`bloodbag_id`))
+mysql> insert into donation_details values(default,"2019-08-18","56",1,0,1,0,1,1,1,1);
+Query OK, 1 row affected (0.14 sec)
+
+mysql> insert into donation_details values(default,"2019-08-18","56",1,0,1,0,1,1,1,1);
+

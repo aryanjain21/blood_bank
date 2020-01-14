@@ -36,7 +36,7 @@ public class Camp
 		this.camp_id = camp_id;
 	}
 
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name = "organizer_id")
 	public User getOrganizer_id() {
 		return organizer_id;
